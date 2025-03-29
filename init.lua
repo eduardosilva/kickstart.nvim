@@ -273,6 +273,8 @@ require('lazy').setup({
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
+      numhl = true, -- Toggle with `:Gitsigns toggle_numhl`
+      linehl = true, -- Toggle with `:Gitsigns toggle_linehl`
     },
   },
 
