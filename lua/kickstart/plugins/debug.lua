@@ -23,6 +23,7 @@ return {
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
+    'mfussenegger/nvim-dap-python',
   },
   keys = {
     -- Basic debugging keymaps, feel free to change to your liking!
@@ -95,6 +96,8 @@ return {
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
+        'python',
+        'netcoredbg',
       },
     }
 
@@ -142,6 +145,52 @@ return {
         -- On Windows delve must be run attached or it crashes.
         -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
         detached = vim.fn.has 'win32' == 0,
+      },
+    }
+
+    -- Install python specific config
+    require('dap-python').setup()
+
+    -- Install csharp specific config
+    dap.adapters.coreclr = {
+      type = 'executable',
+      command = vim.fn.exepath 'netcoredbg',
+      args = { '--interpreter=vscode' },
+    }
+
+    dap.configurations.cs = {
+      {
+        type = 'coreclr',
+        name = 'Launch .NET Core',
+        request = 'launch',
+        preLaunchTask = function()
+          -- Automatically build the project before debugging
+          print 'Building project...'
+          os.execute 'dotnet build --configuration Debug'
+          print 'Build completed!'
+        end,
+        program = function()
+          -- Detect the .NET version dynamically from the project's directory
+          local function find_net_version()
+            local project_dir = vim.fn.getcwd() .. '/bin/Debug/'
+            local handle = io.popen('ls ' .. project_dir)
+            if handle then
+              local result = handle:read '*a'
+              handle:close()
+              local versions = {}
+              for v in result:gmatch 'net[%d%.]+' do
+                table.insert(versions, v)
+              end
+              return versions[#versions] or 'net7.0' -- Default fallback
+            end
+            return 'net7.0'
+          end
+
+          local net_version = find_net_version()
+          local default_path = vim.fn.getcwd() .. '/bin/Debug/' .. net_version .. '/'
+
+          return vim.fn.input('Path to DLL: ', default_path, 'file')
+        end,
       },
     }
   end,
