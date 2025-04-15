@@ -161,6 +161,12 @@ vim.opt.scrolloff = 10
 -- See `:help 'confirm'`
 vim.opt.confirm = true
 
+-- Disable swap & backup files
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.writebackup = false
+vim.opt.undofile = false
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
