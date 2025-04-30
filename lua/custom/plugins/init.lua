@@ -10,19 +10,20 @@ return {
   },
   config = function()
     local null_ls = require 'null-ls'
-    local formatting = null_ls.builtins.formatting -- to setup formatters
+    local formatting = null_ls.builtins.formatting   -- to setup formatters
     local diagnostics = null_ls.builtins.diagnostics -- to setup linters
 
     -- list of formatters & linters for mason to install
     require('mason-null-ls').setup {
       ensure_installed = {
         'checkmake', -- makefile
-        'prettier', -- ts/js formatter
-        'stylua', -- lua formatter
-        'eslint_d', -- ts/js linter
-        'shfmt', -- shell scripts formatter
-        'ruff', -- python formatter
+        'prettier',  -- ts/js formatter
+        'stylua',    -- lua formatter
+        'eslint_d',  -- ts/js linter
+        'shfmt',     -- shell scripts formatter
+        'ruff',      -- python formatter
         'csharpier', -- c# formatter
+        'rubocop',   -- ruby linter & formatter
       },
       -- auto-install configured formatters & linters (with null-ls)
       automatic_installation = true,

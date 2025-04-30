@@ -733,6 +733,8 @@ require('lazy').setup({
             },
           },
         },
+        -- Ruby LSP config
+        ruby_lsp = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -765,6 +767,13 @@ require('lazy').setup({
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
+          end,
+          -- Add specific configuration for Ruby LSP
+          ['ruby_lsp'] = function()
+            require('lspconfig').ruby_lsp.setup {
+              capabilities = capabilities,
+              -- You can add specific Ruby LSP settings here if needed
+            }
           end,
         },
       }
