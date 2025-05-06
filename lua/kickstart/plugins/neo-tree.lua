@@ -26,15 +26,12 @@ return {
           ['x'] = 'cut_to_clipboard',     -- Cut file or folder
           ['p'] = 'paste_from_clipboard', -- Paste file or folder
           ['y'] = 'copy_to_clipboard',    -- Yank file path
-          ['Y'] = 'copy_absolute_path',   -- Yank absolute file path
 
           -- File/folder navigation
-          ['l'] = 'open',             -- Expand folder or open file
-          ['h'] = 'close_node',       -- Collapse folder
-          ['J'] = 'move_cursor_down', -- Move cursor down
-          ['K'] = 'move_cursor_up',   -- Move cursor up
-          ['<CR>'] = 'open',          -- Open file or directory
-          ['<BS>'] = 'navigate_up',   -- Go up one directory
+          ['l'] = 'open',           -- Expand folder or open file
+          ['h'] = 'close_node',     -- Collapse folder
+          ['<CR>'] = 'open',        -- Open file or directory
+          ['<BS>'] = 'navigate_up', -- Go up one directory
           ['P'] = {
             'toggle_preview',
             config = {
