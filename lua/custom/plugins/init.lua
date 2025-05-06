@@ -38,6 +38,12 @@ return {
       require('none-ls.formatting.ruff').with { extra_args = { '--extend-select', 'I' } },
       require 'none-ls.formatting.ruff_format',
       formatting.csharpier,
+
+      formatting.rubocop.with {
+        command = 'bundle', -- run through bundler
+        args = { 'exec', 'rubocop', '-A', '--stdin', '$FILENAME', '--stderr' },
+        to_stdin = true,
+      },
     }
 
     local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
